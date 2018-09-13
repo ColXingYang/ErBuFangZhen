@@ -255,6 +255,9 @@ public class ResultData
     public Pos3 target_pos;
     public byte[] image;
     public ColliderArea colliderArea;
+    public Pos3 threePoint0;
+    public Pos3 threePoint1;
+    public Pos3 threePointCenter;
 
     public ResultData()
     {

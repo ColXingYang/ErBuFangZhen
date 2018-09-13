@@ -30,6 +30,7 @@ public class SceneObject
     public InputField deskH;
     public InputField jxbPosX;
     public InputField jxbPosZ;
+    public ThreePoints threePoints;
 }
 
 public class SetupController : MonoSingleton<SetupController> {
@@ -225,8 +226,17 @@ public class SetupController : MonoSingleton<SetupController> {
         resultData.target_pos.y = sceneObject.good.position.y;
         resultData.target_pos.z = sceneObject.good.position.z;
 
-        
 
+        //手掌中3个点的坐标
+        resultData.threePoint0.x = sceneObject.threePoints.FirstPoint.transform.position.x;
+        resultData.threePoint0.y = sceneObject.threePoints.FirstPoint.transform.position.y;
+        resultData.threePoint0.z = sceneObject.threePoints.FirstPoint.transform.position.z;
+        resultData.threePoint1.x = sceneObject.threePoints.SecondPoint.transform.position.x;
+        resultData.threePoint1.y = sceneObject.threePoints.SecondPoint.transform.position.y;
+        resultData.threePoint1.z = sceneObject.threePoints.SecondPoint.transform.position.z;
+        resultData.threePointCenter.x = sceneObject.threePoints.CenterPoint.transform.position.x;
+        resultData.threePointCenter.y = sceneObject.threePoints.CenterPoint.transform.position.y;
+        resultData.threePointCenter.z = sceneObject.threePoints.CenterPoint.transform.position.z;
     }
 
     private IEnumerator CaptureShot()
