@@ -196,6 +196,7 @@ public class JXBWData
 /// </summary>
 public class ReceiveInitData
 {
+    public string Id;
     /// <summary>
     /// 货物信息
     /// </summary>
