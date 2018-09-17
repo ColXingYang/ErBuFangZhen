@@ -102,6 +102,7 @@ public class SetupController : MonoSingleton<SetupController> {
     {
         if (isReceiveInitData && initData != null)
         {
+			SetProperty(initData);
             SetGoodSize(initData.goodInfo.goodSize);
             ChangeGoodPos(initData.goodInfo.goodPos);
             SetJXBAngle(initData.jxbAngleInfo);
@@ -118,6 +119,7 @@ public class SetupController : MonoSingleton<SetupController> {
 
         if (isReceiveResetCommand && initData != null)
         {
+			SetProperty(initData);
             SetGoodSize(initData.goodInfo.goodSize);
             ChangeGoodPos(initData.goodInfo.goodPos);
             SetJXBAngle(initData.jxbAngleInfo);
@@ -125,6 +127,14 @@ public class SetupController : MonoSingleton<SetupController> {
             isReceiveResetCommand = false;
         }
     }
+	
+	private void SetProperty(ReceiveInitData  data){
+
+      //  sceneObject.good.Find("")
+      //  sceneObject.good.Find("DownCollider").GetComponent<BoxCollider>().physicsMaterial.DynamicFriction = data.goodInfo.COF;
+		sceneObject.good.GetComponent<Rigidbody>().mass = data.goodInfo.mass;
+        resultData.hasDiaoLuo = sceneObject.good.GetComponent<GoodView>().HasDiaoLuo;
+	}
 
     #region 步进
 

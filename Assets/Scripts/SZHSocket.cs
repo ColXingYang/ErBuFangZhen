@@ -259,6 +259,7 @@ public class ResultData
     public Pos3 threePoint0;
     public Pos3 threePoint1;
     public Pos3 threePointCenter;
+    public bool hasDiaoLuo;
 
     public ResultData()
     {

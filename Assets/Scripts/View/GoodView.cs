@@ -16,8 +16,8 @@ public class GoodView : MonoBehaviour
     private float speed;
 
     public UploadGoodInfoView uploadGoodInfoView;
-   
 
+    public bool HasDiaoLuo = false;
 
     private void Start()
     {
@@ -54,6 +54,11 @@ public class GoodView : MonoBehaviour
             ChangePos(moveDistance);
 
             isSetPos = false;
+        }
+
+        if (self.position.y < -0.5f)
+        {
+            HasDiaoLuo = true;
         }
     }
 
