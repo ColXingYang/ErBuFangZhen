@@ -15,7 +15,8 @@ public class SceneObject
     public List<Transform> goodLegs;
     public Transform good;
 
-    public Transform jxb;
+    public GameObject JXB0;
+    public GameObject JXB1;
 
     public List<Transform> deskLegs;
 
@@ -41,6 +42,7 @@ public class SetupController : MonoSingleton<SetupController> {
 
     public SceneObject sceneObject;
 
+    private GameObject _currentJXB;
     RtsCamera rtsCamera;
     private void Start()
     {
@@ -50,34 +52,15 @@ public class SetupController : MonoSingleton<SetupController> {
         ServerDemo.Instance.OnRecevieStepData += OnReceiveStepData;
         ServerDemo.Instance.OnRecevieResetCommand += OnReset;
 
-        if (sceneObject.deskPosX != null)
-        {
-            sceneObject.deskPosX.text = sceneObject.desk.position.x.ToString("0.00");
-        }
-        if (sceneObject.deskPosZ != null)
-        {
-            sceneObject.deskPosZ.text = sceneObject.desk.position.z.ToString("0.00");
-        }
-        if (sceneObject.deskW != null)
-        {
-            sceneObject.deskW.text = SceneSizeOptions.Desk.width.ToString("0.00");
-        }
-        if (sceneObject.deskH != null)
-        {
-            sceneObject.deskH.text = SceneSizeOptions.Desk.heigth.ToString("0.00");
-        }
-        if (sceneObject.deskL != null)
-        {
-            sceneObject.deskL.text = SceneSizeOptions.Desk.length.ToString("0.00");
-        }
-        if (sceneObject.jxbPosX != null)
-        {
-            sceneObject.jxbPosX.text = sceneObject.jxb.position.x.ToString("0.00");
-        }
-        if (sceneObject.jxbPosZ != null)
-        {
-            sceneObject.jxbPosZ.text = sceneObject.jxb.position.z.ToString("0.00");
-        }
+        sceneObject.deskPosX.text = sceneObject.desk.position.x.ToString("0.00");
+        sceneObject.deskPosZ.text = sceneObject.desk.position.z.ToString("0.00");
+        sceneObject.deskW.text = SceneSizeOptions.Desk.width.ToString("0.00");
+        sceneObject.deskH.text = SceneSizeOptions.Desk.heigth.ToString("0.00");
+        sceneObject.deskL.text = SceneSizeOptions.Desk.length.ToString("0.00");
+
+        _currentJXB = sceneObject.JXB0;
+        sceneObject.jxbPosX.text = _currentJXB.transform.position.x.ToString("0.00");
+        sceneObject.jxbPosZ.text = _currentJXB.transform.position.z.ToString("0.00");    
     }
 
     
@@ -332,11 +315,7 @@ public class SetupController : MonoSingleton<SetupController> {
         if (sceneObject.good != null)
         {
             SetLength(sceneObject.good, size.length / SceneSizeOptions.Good.length);
-
-
             SetWidth(sceneObject.good, size.width / SceneSizeOptions.Good.width);
-
-
             SetHeigth(sceneObject.good, size.heigth / SceneSizeOptions.Good.heigth);
         }
     }
@@ -414,63 +393,45 @@ public class SetupController : MonoSingleton<SetupController> {
 
     public void ChangeJXBPosX(string value)
     {
-        if(sceneObject.jxb != null)
+        float posx = _currentJXB.transform.position.x;
+
+        if (float.TryParse(value, out posx))
         {
-            float posx = sceneObject.jxb.position.x;
-
-            if (float.TryParse(value, out posx))
-            {
-                sceneObject.jxb.position = new Vector3(posx, sceneObject.jxb.position.y, sceneObject.jxb.position.z);
-            }
-
-            if (sceneObject.jxbPosX != null)
-            {
-                sceneObject.jxbPosX.text = sceneObject.jxb.position.x.ToString("0.00");
-            }
+            _currentJXB.transform.position = new Vector3(posx, _currentJXB.transform.position.y, _currentJXB.transform.position.z);
         }
+
+        sceneObject.jxbPosX.text = _currentJXB.transform.position.x.ToString("0.00");
     }
 
     public void AddJXBPosX(string delta)
     {
-        if (sceneObject.jxb != null)
+        float posx = _currentJXB.transform.position.x;
+        float value = 0;
+        if (float.TryParse(delta, out value))
         {
-            float posx = sceneObject.jxb.position.x;
-            float value = 0;
-            if (float.TryParse(delta, out value))
-            {
-                ChangeJXBPosX((posx + value).ToString());
-            }
+            ChangeJXBPosX((posx + value).ToString());
         }
     }
 
     public void ChangeJXBPosZ(string value)
     {
-        if (sceneObject.jxb != null)
+        float posz = _currentJXB.transform.position.z;
+
+        if (float.TryParse(value, out posz))
         {
-            float posz = sceneObject.jxb.position.z;
-
-            if (float.TryParse(value, out posz))
-            {
-                sceneObject.jxb.position = new Vector3(sceneObject.jxb.position.x, sceneObject.jxb.position.y, posz);
-            }
-
-            if (sceneObject.jxbPosZ != null)
-            {
-                sceneObject.jxbPosZ.text = sceneObject.jxb.position.z.ToString("0.00");
-            }
+            _currentJXB.transform.position = new Vector3(_currentJXB.transform.position.x, _currentJXB.transform.position.y, posz);
         }
+
+        sceneObject.jxbPosZ.text = _currentJXB.transform.position.z.ToString("0.00");
     }
 
     public void AddJXBPosZ(string delta)
     {
-        if (sceneObject.jxb != null)
+        float posz = _currentJXB.transform.position.z;
+        float value = 0;
+        if (float.TryParse(delta, out value))
         {
-            float posz = sceneObject.jxb.position.z;
-            float value = 0;
-            if (float.TryParse(delta, out value))
-            {
-                ChangeJXBPosZ((posz + value).ToString());
-            }
+            ChangeJXBPosZ((posz + value).ToString());
         }
     }
     #endregion
