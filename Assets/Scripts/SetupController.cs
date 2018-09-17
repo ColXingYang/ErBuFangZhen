@@ -63,6 +63,12 @@ public class SetupController : MonoSingleton<SetupController> {
         sceneObject.jxbPosZ.text = _currentJXB.transform.position.z.ToString("0.00");    
     }
 
+    public void SwitchJXB() {
+        _currentJXB = _currentJXB == sceneObject.JXB0 ? sceneObject.JXB1 : sceneObject.JXB0;
+        sceneObject.jxbPosX.text = _currentJXB.transform.position.x.ToString("0.00");
+        sceneObject.jxbPosZ.text = _currentJXB.transform.position.z.ToString("0.00");
+    }
+
     
 
     public void SetUpGoodPos()
